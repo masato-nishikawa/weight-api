@@ -6,3 +6,8 @@ async function bootstrap() {
   await app.listen(process.env.PORT ?? 3000);
 }
 bootstrap();
+
+// 開発中などをTSで動作してほっとりロードができる
+// npm run start:dev
+//　JSにコンパイルした後に動作
+// node dist/main

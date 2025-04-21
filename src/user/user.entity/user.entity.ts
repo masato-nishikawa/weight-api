@@ -1,9 +1,9 @@
-import { Entity, PrimaryColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column,CreateDateColumn } from 'typeorm';
 
 // 既存のテーブル名を使う
 @Entity({ name: 'user' }) 
 export class User {
-  @PrimaryColumn('uuid') // 自動生成されていないなら PrimaryColumn
+  @PrimaryGeneratedColumn('uuid') // ← 自動で UUID を生成！
   id: string;
 
   // 名前は自由に設定ができる
@@ -22,6 +22,6 @@ export class User {
   password: string;
 
   // タイムスタンプを使用する
-  @Column({ type: 'timestamp with time zone', name: 'recorded_at' })
+  @CreateDateColumn({ name: 'recorded_at', type: 'timestamp with time zone' })
   recordedAt: Date;
 }
