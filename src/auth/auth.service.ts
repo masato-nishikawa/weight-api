@@ -1,4 +1,4 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable, UnauthorizedException, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from '../user/user.entity/user.entity';
@@ -22,7 +22,7 @@ export class AuthService {
     // メールアドレスが存在しているかの確認
     const existing = await this.userRepository.findOne({ where: { email } });
     if (existing) {
-      throw new Error('すでに登録されています');
+      throw new BadRequestException('すでに登録されています');
     }
     // bcryptでパスワードのハッシュ化(暗号化)
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -44,7 +44,7 @@ export class AuthService {
     const user = await this.userRepository.findOne({ where: { email } });
     // ユーザーが存在してuserのパスワードを比較すればOKなら
     if (!user || !(await bcrypt.compare(password, user.password))) {
-      throw new UnauthorizedException('ログイン失敗');
+      throw new BadRequestException('ログイン失敗');
     }
     // sub は「トークンの主体（subject）」を意味し、慣習的に user.idを用いている
     const payload = { sub: user.id, email: user.email };

@@ -5,6 +5,8 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { User } from './user/user.entity/user.entity';
+import { Weight } from './weight/entities/weight.entity'; 
+import { WeightModule } from './weight/weight.module';
 
 @Module({
   imports: [
@@ -21,7 +23,7 @@ import { User } from './user/user.entity/user.entity';
         username: configService.get<string>('DB_USER'),
         password: configService.get<string>('DB_PASS'),
         database: configService.get<string>('DB_NAME'),
-        entities: [User],
+        entities: [User, Weight],
         // 本番では false にする
         synchronize: true, 
       }),
@@ -29,6 +31,7 @@ import { User } from './user/user.entity/user.entity';
     }),
     TypeOrmModule.forFeature([User]),
     AuthModule,
+    WeightModule,
   ],
   controllers: [AppController],
   providers: [AppService],

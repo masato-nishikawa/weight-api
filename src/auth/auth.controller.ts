@@ -16,7 +16,7 @@ export class AuthController {
       password: string;
       name?: string 
     }) {
-    console.log('Received body:', body);
+    console.log('登録内容:', body);
     // 登録APIの送信元に返す内容
     return this.authService.register(
       body.email,
@@ -32,6 +32,7 @@ export class AuthController {
       email: string;
       password: string
     }) {
+    console.log('ログイン情報:', body);
     return this.authService.login(
       body.email,
       body.password
