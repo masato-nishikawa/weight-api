@@ -1,4 +1,9 @@
-import { Entity, PrimaryGeneratedColumn, Column,CreateDateColumn } from 'typeorm';
+import { 
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn
+  } from 'typeorm';
 
 // 既存のテーブル名を使う
 @Entity({ name: 'user' }) 
