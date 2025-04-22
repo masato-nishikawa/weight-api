@@ -14,6 +14,7 @@ export class WeightService {
 
   // 登録処理（ログインユーザーに紐づけ）
   async create(dto: CreateWeightDto, userId: string): Promise<Weight> {
+    // データ転送オブジェクトを展開して登録
     const newWeight = this.weightRepository.create({
       ...dto,
       userId,
@@ -21,11 +22,13 @@ export class WeightService {
     return this.weightRepository.save(newWeight);
   }
 
-  // 体重データの取り出し
+  // 体重データを全て取り出し
   async findAllByUser(userId: string): Promise<Weight[]> {
+    // TypeORMのメソッドで検索
     return this.weightRepository.find({
+      // whereが絞り込みの条件、SQLではWHERE user_id = '...'
       where: { userId },
-      // 任意：新しい順に並び替え
+      // SQLではORDER BY recorded_at DESC
       order: { recordedAt: 'DESC' }, 
     });
   }
