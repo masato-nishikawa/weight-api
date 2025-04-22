@@ -23,6 +23,7 @@ import { WeightModule } from './weight/weight.module';
         username: configService.get<string>('DB_USER'),
         password: configService.get<string>('DB_PASS'),
         database: configService.get<string>('DB_NAME'),
+        // Weightで入れ忘れに注意
         entities: [User, Weight],
         // 本番では false にする
         synchronize: true, 

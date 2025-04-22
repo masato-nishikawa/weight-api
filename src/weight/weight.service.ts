@@ -21,4 +21,13 @@ export class WeightService {
     return this.weightRepository.save(newWeight);
   }
 
+  // 体重データの取り出し
+  async findAllByUser(userId: string): Promise<Weight[]> {
+    return this.weightRepository.find({
+      where: { userId },
+      // 任意：新しい順に並び替え
+      order: { recordedAt: 'DESC' }, 
+    });
+  }
+
 }
