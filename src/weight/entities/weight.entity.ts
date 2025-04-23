@@ -3,7 +3,10 @@ import {
     PrimaryGeneratedColumn,
     Column,
     CreateDateColumn,
+    ManyToOne,
+    JoinColumn
 } from 'typeorm';
+import { User } from '../../user/user.entity/user.entity';
 
 @Entity()
 export class Weight {
@@ -11,9 +14,10 @@ export class Weight {
 @PrimaryGeneratedColumn('uuid')
 id: string;
 
-// userテーブルのuuidを使いたい
-@Column()
-userId: string;
+@ManyToOne(() => User, user => user.weights)
+// 外部キーのカラム名を指定
+@JoinColumn({ name: "userId" }) 
+user: User;
 
 // 体重のデータ
 @Column('float')

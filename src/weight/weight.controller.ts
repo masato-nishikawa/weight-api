@@ -3,14 +3,13 @@ import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { CreateWeightDto } from './dto/create-weight.dto';
 import { WeightService } from './weight.service';
 
+// @Guardを全体に付けてもいい
+// ユーザー認証をしていてログイン済みユーザーのみ使用可能
+@UseGuards(JwtAuthGuard)
 @Controller('weight')
 export class WeightController {
   constructor(private readonly weightService: WeightService) {}
 
-  // ユーザー認証をしていてログイン済みユーザーのみ使用可能
-  @UseGuards(JwtAuthGuard)
-  
-  //　エンドポイントの動作
   @Post()
   create(@Body() 
     dto: CreateWeightDto,
@@ -27,9 +26,6 @@ export class WeightController {
   //   "measuredAt": "2025-04-22T10:30:00Z"
   // }
 
-  
-  //　エンドポイントの動作
-  @UseGuards(JwtAuthGuard)
   @Get()
   findAllByUser(@Request() req) {
     const userId = req.user.userId;

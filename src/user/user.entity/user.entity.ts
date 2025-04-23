@@ -1,9 +1,11 @@
-import { 
+import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
-  CreateDateColumn
-  } from 'typeorm';
+  CreateDateColumn,
+  OneToMany
+} from 'typeorm';
+import { Weight } from '../../weight/entities/weight.entity';
 
 // 既存のテーブル名を使う
 @Entity({ name: 'user' }) 
@@ -29,4 +31,7 @@ export class User {
   // タイムスタンプを使用する
   @CreateDateColumn({ name: 'recorded_at', type: 'timestamp with time zone' })
   recordedAt: Date;
+
+  @OneToMany(() => Weight, weight => weight.user)
+  weights: Weight[];
 }

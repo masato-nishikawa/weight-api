@@ -1,41 +1,24 @@
 import { Controller, Post, Body } from '@nestjs/common';
 import { AuthService } from './auth.service';
+import { RegisterAuthDto } from './dto/register-auth.dto';
+import { LoginAuthDto } from './dto/login-auth.dto';
 
 @Controller('auth')
 export class AuthController {
   // 最初に1度きりのサービス呼び出し
   constructor(private readonly authService: AuthService) {}
 
-  // POSTを定義するデコレーター
+  // POSTを定義するデコレータ
   @Post('register')
-  // JSONを受け取る@Bodyのデコレーター
-  register(@Body() 
-    // 受け取るJSONの内容
-    body: {
-      email: string;
-      password: string;
-      name?: string 
-    }) {
+  // dtoで入力内容の確認
+  register(@Body() body: RegisterAuthDto) {
     console.log('登録内容:', body);
-    // 登録APIの送信元に返す内容
-    return this.authService.register(
-      body.email,
-      body.password,
-      body.name
-    );
+    return this.authService.register(body);
   }
 
-
   @Post('login')
-  login(@Body() 
-    body: {
-      email: string;
-      password: string
-    }) {
+  login(@Body() body: LoginAuthDto) {
     console.log('ログイン情報:', body);
-    return this.authService.login(
-      body.email,
-      body.password
-    );
+    return this.authService.login(body);
   }
 }
